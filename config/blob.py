@@ -27,3 +27,8 @@ class ADLServices:
             url = self.blob_service_client.get_blob_client(container="pictures", blob=blob.name).url
             pictures.append({"name": blob.name, "url": url})
         return pictures
+
+    def insert_in_blob(self):
+        blob = BlobClient.from_connection_string("my_connection_string", container="mycontainer", blob="my_blob")
+
+        blob.upload_blob(data)

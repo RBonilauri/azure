@@ -28,21 +28,8 @@ def description_insert_image(picture):
     plt.imshow(img)
     plt.show()
 
-    # description_image = computervision_client.analyze_image_in_stream(img) analyzeImageInStream
-    description_image = computervision_client.describe_image(url)
+    az.analyse_picture(name, url)
 
-    description_text = ""
-    for caption in description_image.captions:
-        description_text = description_text + caption.text
-
-    print("description : ", description_text, end="\n")
-
-    # Call function to insert in BDD
-    sql_picture = az.insert_pictures(name, description_text, url)
-    sql_picture_id = sql_picture[0][0]
-
-    for tag in description_image.tags:
-        az.insert_tags(tag, tag, sql_picture_id)
 
 
 #for i in pictures:

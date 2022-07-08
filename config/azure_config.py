@@ -50,3 +50,24 @@ class AzureServices:
                 result.append(t[0])
 
         return self.sql_service.get_picture_by_id(most_frequent(result))[3]
+    def insert_and_analyse_picture(self, url):
+        self.insert_in_blob()
+        self.analyse_picture()
+
+    def insert_in_blob(self):
+        self.adl_service.insert_in_blob()
+
+    def analyse_picture(self, name, url):
+        description_image = self.computer_vision.describe_image(url)
+
+        description_text = ""
+        for caption in description_image.captions:
+            description_text = description_text + caption.text
+
+        print("description : ", description_text, end="\n")
+
+        sql_picture = self.insert_pictures(name, description_text, url)
+        sql_picture_id = sql_picture[0][0]
+
+        for tag in description_image.tags:
+            self.insert_tags(tag, tag, sql_picture_id)
