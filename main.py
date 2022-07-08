@@ -1,6 +1,7 @@
 import requests
 from flask import Flask, render_template, request
 from form import Research, Upload
+from image_analysis import describe_image, analyze_image
 from flask_bootstrap import Bootstrap
 import config.azure_config as azure_config
 
@@ -8,6 +9,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'ErnR468dnezfheI3FUbeehui3'
 Bootstrap(app)
+
 
 az = azure_config.AzureServices()
 @app.route('/', methods=['GET'])
@@ -24,10 +26,16 @@ def set_picture():
     return render_template('/set_picture.html', img=img, tags=tags)
 
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
+@app.route('/upload_with_url', methods=['GET', 'POST'])
+def upload_file():
     form = Upload(request.form)
-    return render_template('/form_img.html', form=form)
+    return render_template('/form_img_url.html', form=form)
+
+
+@app.route('/upload_from_file', methods=['GET', 'POST'])
+def upload_url():
+    form = Upload(request.form)
+    return render_template('/form_img_file.html', form=form)
 
 
 @app.route('/upload_done', methods=['GET', 'POST'])

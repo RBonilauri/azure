@@ -10,12 +10,11 @@
 
 
 {% block title %}
-Find your best image
+From file
 {% endblock %}
 
 
 {% block content %}
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -45,48 +44,10 @@ Find your best image
     </div>
 </nav>
 
-<div  class="container">
-  <div class="row">
-    <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
-        <p class="lead">This is the index page for proposing images from tags selection, press control for multiple choice</p>
-
-        <form class="form" action="{{url_for('set_picture')}}" method="post">
-            <div class="form-group">
-                <select name="tags" class="form-control" id="tags" multiple>
-                    {% for key, val in form.tags.data %}
-                        <option value="{{ val }}">{{ val }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-check">
-                {% for subfield in form.type %}
-                    <tr>
-                        <td>{{ subfield }}</td>
-                        <td>{{ subfield.label }}</td>
-                    </tr>
-                {% endfor %}
-            </div>
-            <div class="form-group">
-                {{ form.description }}
-            </div>
-            <div class="form-check">
-                {% for subfield in form.target %}
-                    <tr>
-                        <td>{{ subfield }}</td>
-                        <td>{{ subfield.label }}</td>
-                    </tr>
-                {% endfor %}
-            </div>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-primary") }}
-            </div>
-
-        </form>
+<div class="container">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Default file input example</label>
+      <input class="form-control" type="file" id="formFile">
     </div>
-  </div>
 </div>
-
 {% endblock %}
-
-<h1 class="pt-5 pb-2">Welcome to the image proposal</h1>
-
