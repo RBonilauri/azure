@@ -19,10 +19,19 @@ def home():
     form.tags.data = az.get_tags()
     return render_template('/form_tags.html', form=form)
 
+
+@app.route('/all_images', methods=['GET'])
+def all_images():
+
+    img = az.get_all_pictures()
+    return render_template('/all_images.html', form=img)
+
+
 @app.route('/set_picture', methods=['POST'])
 def set_picture():
     tags = request.form.getlist('tags')
     img = az.find_picture(tags)
+    return str(img)
     return render_template('/set_picture.html', img=img, tags=tags)
 
 
