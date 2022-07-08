@@ -12,7 +12,12 @@ Bootstrap(app)
 
 
 az = azure_config.AzureServices()
+
 @app.route('/', methods=['GET'])
+def homee():
+    return "hello world"
+
+@app.route('/home', methods=['GET'])
 def home():
 
     form = Research(request.form)
